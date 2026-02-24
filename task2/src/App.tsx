@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import UserProfile from './UserProfile';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Состояние для хранения ID пользователя (Task 3)
+  const [userId, setUserId] = useState(1);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div style={{ padding: '20px' }}>
+      <h1>Lab 3.2: Data Fetching with useEffect</h1>
+      
+      <div style={{ marginBottom: '20px' }}>
+        {/* Кнопки для смены ID (Task 3) */}
+        <button onClick={() => setUserId(1)}>User 1</button>
+        <button onClick={() => setUserId(2)}>User 2</button>
+        <button onClick={() => setUserId(3)}>User 3</button>
+        <button onClick={() => setUserId(Math.floor(Math.random() * 10) + 1)}>
+          Random User
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {/* Передаем userId как проп (Task 3) */}
+      <UserProfile userId={userId} />
+
+      <footer style={{ marginTop: '20px', fontSize: '0.8em' }}>
+        <p>Current User ID: {userId}</p>
+        {/* Комментарий: userId в dependency array заставляет useEffect 
+            запускать новый fetch при каждом изменении ID. [cite: 141, 244] */}
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
